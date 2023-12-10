@@ -97,7 +97,9 @@ galleryImg.addEventListener('click', event => {
                 </div>`, 
                         {onShow: (instance) => {document.addEventListener('keydown', escape)}},
                         {onClose:(instance) => {document.removeEventListener('keydown', escape)}}
-                ).show();
+                );
+
+            instance.show()
 
         function escape (event) {
             if (event.code === 'Escape') instance.close();
