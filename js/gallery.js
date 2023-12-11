@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 const images = [
     {
@@ -66,21 +66,21 @@ const images = [
     },
   ];
 
-const galleryImg = document.querySelector('.gallery'); 
+const galleryImg = document.querySelector(".gallery"); 
 
-galleryImg.innerHTML = images.reduce((html, img) => 
+galleryImg.innerHTML = images.reduce((html, { preview, original, description }) => 
     html + 
     `<li class="gallery-item">
-        <a class="gallery-link" href="${img.original}">
+        <a class="gallery-link" href="${original}">
             <img class="gallery-image"
-                src="${img.preview}"
-                data-source="${img.original}"
-                alt="${img.description}"
+                src="${preview}"
+                data-source="${original}"
+                alt="${description}"
             />
         </a>
-    </li>`, '');
+    </li>`, "");
 
-galleryImg.addEventListener('click', event => {
+galleryImg.addEventListener("click", event => {
     event.preventDefault()
 
     const listSrsOriginal = event.target.dataset.source;
@@ -89,21 +89,19 @@ galleryImg.addEventListener('click', event => {
         const listImg = images.find(img => img.original === listSrsOriginal );
         if (!listImg) return;
 
+        function escape(event) {
+            if (event.code === "Escape") instance.close();
+            };
+
             const instance = basicLightbox.create(
                 `<div class = "modal">
                     <img 
                     src="${event.target.dataset.source}"
                     alt="${event.target.alt}"/>
                 </div>`, 
-                        {onShow: (instance) => {document.addEventListener('keydown', escape)},
-                        onClose:(instance) => {document.removeEventListener('keydown', escape)}}
+                        {onShow: (instance) => {document.addEventListener("keydown", escape)},
+                        onClose:(instance) => {document.removeEventListener("keydown", escape)}}
                 );
-
-            instance.show()
-
-        function escape(event) {
-            if (event.code === 'Escape') instance.close();
-            };
-              
+            instance.show()     
     }
 })
